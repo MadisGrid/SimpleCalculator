@@ -81,45 +81,35 @@ class Calculator {
     this.display.setText(this.result.toString());
   }
 
-  start() {
-    // Create GridPane to place all buttons needed for the Calculator
-    const display = this.display;
-    const grid = document.createElement('div');
-    grid.style.padding = '10px';
-    grid.style.display = 'grid';
-    grid.style.gridGap = '10px';
-    grid.style.gridTemplateColumns = 'repeat(4, 50px)';
-    grid.style.gridTemplateRows = 'repeat(4, 50px)';
-    grid.style.alignItems = 'center';
-    grid.style.justifyContent = 'center';
+start() {
+  // Create GridPane to place all buttons needed for the Calculator
+  const display = this.display;
+  const grid = document.createElement('div');
+  grid.style.padding = '10px';
+  grid.style.display = 'grid';
+  grid.style.gridGap = '10px';
+  grid.style.gridTemplateColumns = 'repeat(4, 50px)';
+  grid.style.gridTemplateRows = 'repeat(4, 50px)';
+  grid.style.alignItems = 'center';
+  grid.style.justifyContent = 'center';
 
-    // Create buttons and add them to the grid
-    for (let i = 0; i < this.buttonLabels.length; i++) {
-      const button = document.createElement('button');
-      button.innerText = this.buttonLabels[i];
-      button.onclick = (e) => this.CalculatorButtonsHandler.handle(e);
-      button.style.width = '50px';
-      button.style.height = '50px';
-      grid.appendChild(button);
-      this.buttons[i] = button;
-    }
+  // Create buttons and add them to the grid
+  for (let i = 0; i < this.buttonLabels.length; i++) {
+    const button = document.createElement('button');
+    button.innerText = this.buttonLabels[i];
+    button.onclick = (e) => this.CalculatorButtonsHandler.handle(e);
+    button.style.width = '50px';
+    button.style.height = '50px';
+    grid.appendChild(button);
+    this.buttons[i] = button;
+  }
 
-    // Use Flex Container to place textField at the top and the Grid of buttons in the center
-    const container = document.createElement('div');
-    container.style.display = 'flex';
-    container.style.flexDirection = 'column';
-    container.style.alignItems = 'center';
-    container.style
-// Create a function to update the display with the current input
-function updateDisplay(displayString) {
-  const display = document.getElementById("display");
-  display.value = displayString;
-}
-
-// Create the calculator UI
-function createCalculatorUI() {
-  const container = document.createElement("div");
-  container.className = "container";
+  // Use Flex Container to place textField at the top and the Grid of buttons in the center
+  const container = document.createElement('div');
+  container.style.display = 'flex';
+  container.style.flexDirection = 'column';
+  container.style.alignItems = 'center';
+  container.style.justifyContent = 'center';
 
   // Create the display field
   const display = document.createElement("input");
@@ -130,23 +120,10 @@ function createCalculatorUI() {
   display.readOnly = true;
   container.appendChild(display);
 
-  // Create the buttons
-  const buttonContainer = document.createElement("div");
-  buttonContainer.className = "button-container";
-  buttonLabels.forEach(label => {
-    const button = document.createElement("button");
-    button.className = "button";
-    button.textContent = label;
-    button.addEventListener("click", () => handleButtonClick(label));
-    buttonContainer.appendChild(button);
-  });
-  container.appendChild(buttonContainer);
+  // Add the Grid to the container
+  container.appendChild(grid);
 
-  // Add the calculator UI to the DOM
+  // Add the container to the document body
   document.body.appendChild(container);
 }
-
-// Create the calculator UI when the window is loaded
-window.addEventListener("load", () => {
-  createCalculatorUI();
-});
+  );
