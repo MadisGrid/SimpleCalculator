@@ -9,10 +9,15 @@ class Calculator {
     // Variables to keep track of computation
     this.result = 0;
     this.previousOperator = ' ';
-    this.inputString = '0';
+    this.inputString = '';
 
     // Text field to display the number and result
-    this.display = new TextField('0');
+    this.display = document.createElement('input');
+    this.display.id = 'display';
+    this.display.className = 'display';
+    this.display.type = 'text';
+    this.display.value = '0';
+    this.display.readOnly = true;
 
     // CalculatorButtonsHandler Listener class to handle button clicks
     const CalculatorButtonsHandler = {
@@ -21,9 +26,9 @@ class Calculator {
         switch (buttonLabel) {
           case 'C':
             this.result = 0;
-            this.inputString = '0';
+            this.inputString = '';
             this.previousOperator = ' ';
-            this.display.setText(this.inputString);
+            this.display.value = this.inputString;
             break;
           case '+':
           case '-':
@@ -36,15 +41,15 @@ class Calculator {
             } else {
               this.previousOperator = buttonLabel.charAt(0);
             }
-            this.inputString = '0';
+            this.inputString = '';
             break;
           default:
-            if (this.inputString === '0') {
+            if (this.inputString === '' || this.inputString === '0') {
               this.inputString = buttonLabel;
             } else {
               this.inputString += buttonLabel;
             }
-            this.display.setText(this.inputString);
+            this.display.value = this.inputString;
             if (this.previousOperator === '=') {
               this.result = 0;
               this.previousOperator = ' ';
@@ -102,27 +107,10 @@ class Calculator {
       grid.appendChild(button);
       this.buttons[i] = button;
     }
+  }
+// Add the Calculator object to the window object
+window.Calculator = Calculator;
 
-  // Use Flex Container to place textField at the top and the Grid of buttons in the center
-  const container = document.createElement('div');
-  container.style.display = 'flex';
-  container.style.flexDirection = 'column';
-  container.style.alignItems = 'center';
-  container.style.justifyContent = 'center';
-
-  // Create the display field
-  const display = document.createElement("input");
-  display.id = "display";
-  display.className = "display";
-  display.type = "text";
-  display.value = "0";
-  display.readOnly = true;
-  container.appendChild(display);
-
-  // Add the Grid to the container
-  container.appendChild(grid);
-
-  // Add the container to the document body
-  document.body.appendChild(container);
-}
-  );
+// Create a new instance of the Calculator and start it
+const calc = new Calculator();
+calc.start();
