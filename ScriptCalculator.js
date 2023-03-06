@@ -1,8 +1,7 @@
 class Calculator {
   constructor() {
     // Array to hold button label strings
-    this.buttonLabels = ['7', '8', '9', '/', '4', '5', '6', '*', '1', '2', '3', '-', '0', '.', '=', '+'];
-
+    this.buttonLabels = ['7', '8', '9', '/', '4', '5', '6', '*', '1', '2', '3', '-', '0', '.', '=', '+', 'C'];
     // Array to hold button objects
     this.buttons = new Array(this.buttonLabels.length);
 
