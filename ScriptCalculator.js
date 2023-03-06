@@ -115,4 +115,3 @@ window.Calculator = Calculator;
 const calc = new Calculator();
 calc.start();
 
-}
