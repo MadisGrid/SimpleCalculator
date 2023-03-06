@@ -4,6 +4,8 @@
   # Style for Calculator (CSS)
 \*-----------------------------------*/
 
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
 .calculator {
     padding: 10px;
     border-radius: 1em;
