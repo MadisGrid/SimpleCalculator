@@ -87,27 +87,31 @@ class Calculator {
   }
 
   start() {
-    // Create GridPane to place all buttons needed for the Calculator
-    const grid = document.createElement('div');
-    grid.style.padding = '10px';
-    grid.style.display = 'grid';
-    grid.style.gridGap = '10px';
-    grid.style.gridTemplateColumns = 'repeat(4, 50px)';
-    grid.style.gridTemplateRows = 'repeat(4, 50px)';
-    grid.style.alignItems = 'center';
-    grid.style.justifyContent = 'center';
+  // Create GridPane to place all buttons needed for the Calculator
+  const grid = document.createElement('div');
+  grid.style.padding = '10px';
+  grid.style.display = 'grid';
+  grid.style.gridGap = '10px';
+  grid.style.gridTemplateColumns = 'repeat(4, 50px)';
+  grid.style.gridTemplateRows = 'repeat(4, 50px)';
+  grid.style.alignItems = 'center';
+  grid.style.justifyContent = 'center';
 
-    // Create buttons and add them to the grid
-    for (let i = 0; i < this.buttonLabels.length; i++) {
-      const button = document.createElement('button');
-      button.innerText = this.buttonLabels[i];
-      button.onclick = (e) => this.CalculatorButtonsHandler.handle(e);
-      button.style.width = '50px';
-      button.style.height = '50px';
-      grid.appendChild(button);
-      this.buttons[i] = button;
-    }
+  // Create buttons and add them to the grid
+  for (let i = 0; i < this.buttonLabels.length; i++) {
+    const button = document.createElement('button');
+    button.innerText = this.buttonLabels[i];
+    button.onclick = (e) => this.CalculatorButtonsHandler.handle(e);
+    button.style.width = '50px';
+    button.style.height = '50px';
+    grid.appendChild(button);
+    this.buttons[i] = button;
   }
+
+  // Add the grid element to the document
+  document.body.appendChild(grid);
+}
+  
 // Add the Calculator object to the window object
 window.Calculator = Calculator;
 
