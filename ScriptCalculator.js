@@ -15,8 +15,8 @@ class Calculator {
     this.display = new TextField('0');
 
     // CalculatorButtonsHandler Listener class to handle button clicks
-    class CalculatorButtonsHandler {
-      handle(e) {
+    const CalculatorButtonsHandler = {
+      handle: (e) => {
         const buttonLabel = e.target.innerText;
         switch (buttonLabel) {
           case 'C':
@@ -52,8 +52,9 @@ class Calculator {
             break;
         }
       }
-    }
-    this.CalculatorButtonsHandler = new CalculatorButtonsHandler();
+    };
+
+    this.CalculatorButtonsHandler = CalculatorButtonsHandler;
   }
 
   // Method to handle calculator computations
