@@ -114,3 +114,5 @@ window.Calculator = Calculator;
 // Create a new instance of the Calculator and start it
 const calc = new Calculator();
 calc.start();
+
+}
