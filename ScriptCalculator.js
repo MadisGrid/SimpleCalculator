@@ -83,7 +83,7 @@ class Calculator {
         this.result = inputNum;
         break;
     }
-    this.display.setText(this.result.toString());
+    this.display.value = this.result.toString();
   }
 
   start() {
