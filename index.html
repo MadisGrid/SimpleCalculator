@@ -3,69 +3,45 @@
   -->
 
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-
+<html>
 <head>
-  <meta charset="utf-8">
-  <title>Simple Calculator using HTML, CSS and JavaScript</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+  <title>Calculator</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script type="text/javascript">
+    function compute() {
+      var operand1 = parseInt(document.getElementById("operand1").value);
+      var operand2 = parseInt(document.getElementById("operand2").value);
+      var operator = document.getElementById("operator").value;
+      var result;
 
-<body>
-
-  <table class="calculator">
-    <tr>
-      <td colspan="3"> <input class="display-box" type="text" id="result" disabled /> </td>
-
-      <!-- clearScreen() function clears all the values -->
-      <td> <input type="button" value="C" onclick="clearScreen()" id="btn" /> </td>
-    </tr>
-    <tr>
-      <!-- display() function displays the value of clicked button -->
-      <td> <input type="button" value="1" onclick="display('1')" /> </td>
-      <td> <input type="button" value="2" onclick="display('2')" /> </td>
-      <td> <input type="button" value="3" onclick="display('3')" /> </td>
-      <td> <input type="button" value="/" onclick="display('/')" /> </td>
-    </tr>
-    <tr>
-      <td> <input type="button" value="4" onclick="display('4')" /> </td>
-      <td> <input type="button" value="5" onclick="display('5')" /> </td>
-      <td> <input type="button" value="6" onclick="display('6')" /> </td>
-      <td> <input type="button" value="-" onclick="display('-')" /> </td>
-    </tr>
-    <tr>
-      <td> <input type="button" value="7" onclick="display('7')" /> </td>
-      <td> <input type="button" value="8" onclick="display('8')" /> </td>
-      <td> <input type="button" value="9" onclick="display('9')" /> </td>
-      <td> <input type="button" value="+" onclick="display('+')" /> </td>
-    </tr>
-    <tr>
-      <td> <input type="button" value="." onclick="display('.')" /> </td>
-      <td> <input type="button" value="0" onclick="display('0')" /> </td>
-
-      <!-- calculate() function evaluates the mathematical expression -->
-      <td> <input type="button" value="=" onclick="calculate()" id="btn" /> </td>
-      <td> <input type="button" value="*" onclick="display('*')" /> </td>
-    </tr>
-  </table>
-
-  <script>
-    const buttonList = document.querySelectorAll('input[type="button"]');
-    function changeText(event) {
-      if (event.target.value === 'C') {
-        event.target.style.backgroundColor = 'red';
-      } else {
-        event.target.style.backgroundColor = 'green';
+      if (operator == "+") {
+        result = operand1 + operand2;
+      } else if (operator == "-") {
+        result = operand1 - operand2;
+      } else if (operator == "*") {
+        result = operand1 * operand2;
+      } else if (operator == "/") {
+        result = operand1 / operand2;
       }
+
+      document.getElementById("result").value = result;
     }
-    buttonList.forEach(button => {
-      button.addEventListener('click', changeText);
-    });
   </script>
-  <script type="text/javascript" src="ScriptCalculator.js"></script>
-
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="operand1" placeholder="Operand 1">
+    <select id="operator">
+      <option value="+">+</option>
+      <option value="-">-</option>
+      <option value="*">*</option>
+      <option value="/">/</option>
+    </select>
+    <input type="text" id="operand2" placeholder="Operand 2">
+    <input type="button" id="btn" value="=" onclick="compute()">
+    <input type="text" id="result" placeholder="Result" readonly>
+  </div>
 </body>
-
 </html>
 
  
