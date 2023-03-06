@@ -152,3 +152,4 @@ start() {
   document.body.appendChild(grid);
   document.body.appendChild(this.display);
 }
+}
