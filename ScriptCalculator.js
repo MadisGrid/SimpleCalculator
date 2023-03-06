@@ -1,151 +1,151 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Calculator Demo</title>
-    <style>
-      #calculator {
-        border: 1px solid #ddd;
-        width: 200px;
-        padding: 10px;
-      }
-      #calculator input {
-        font-size: 1.2em;
-        margin-bottom: 10px;
-        padding: 5px;
-        width: 100%;
-      }
-      #calculator button {
-        font-size: 1.2em;
-        padding: 5px 10px;
-        margin-right: 5px;
-        margin-bottom: 5px;
-        background-color: #f8f8f8;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-      #calculator button:hover {
-        background-color: #eee;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="calculator">
-      <input type="text" id="display" value="0" readonly />
-      <button onclick="handleButtonClick('C')">C</button>
-      <button onclick="handleButtonClick('+')">+</button>
-      <button onclick="handleButtonClick('-')">-</button>
-      <button onclick="handleButtonClick('*')">*</button>
-      <button onclick="handleButtonClick('/')">/</button>
-      <button onclick="handleButtonClick('7')">7</button>
-      <button onclick="handleButtonClick('8')">8</button>
-      <button onclick="handleButtonClick('9')">9</button>
-      <button onclick="handleButtonClick('4')">4</button>
-      <button onclick="handleButtonClick('5')">5</button>
-      <button onclick="handleButtonClick('6')">6</button>
-      <button onclick="handleButtonClick('1')">1</button>
-      <button onclick="handleButtonClick('2')">2</button>
-      <button onclick="handleButtonClick('3')">3</button>
-      <button onclick="handleButtonClick('0')">0</button>
-      <button onclick="handleButtonClick('.')">.</button>
-      <button onclick="handleButtonClick('=')">=</button>
-    </div>
-    <script>
-      let result = 0;
-      let previousOperator = "";
-      let inputString = "0";
-      const display = document.getElementById("display");
+class Calculator {
+  constructor() {
+    // Array to hold button label strings
+    this.buttonLabels = ['7', '8', '9', '/', '4', '5', '6', '*', '1', '2', '3', '-', '0', '.', '=', '+'];
 
-      function handleButtonClick(buttonLabel) {
+    // Array to hold button objects
+    this.buttons = new Array(this.buttonLabels.length);
+
+    // Variables to keep track of computation
+    this.result = 0;
+    this.previousOperator = ' ';
+    this.inputString = '0';
+
+    // Text field to display the number and result
+    this.display = new TextField('0');
+
+    // CalculatorButtonsHandler Listener class to handle button clicks
+    class CalculatorButtonsHandler {
+      handle(e) {
+        const buttonLabel = e.target.innerText;
         switch (buttonLabel) {
-          case "C":
-            result = 0;
-            inputString = "0";
-            previousOperator = "";
-            display.value = inputString;
+          case 'C':
+            this.result = 0;
+            this.inputString = '0';
+            this.previousOperator = ' ';
+            this.display.setText(this.inputString);
             break;
-          case "+":
-          case "-":
-          case "*":
-          case "/":
-          case "=":
-            compute();
-            if (buttonLabel === "=") {
-              previousOperator = "";
+          case '+':
+          case '-':
+          case '*':
+          case '/':
+          case '=':
+            this.compute();
+            if (buttonLabel === '=') {
+              this.previousOperator = ' ';
             } else {
-              previousOperator = buttonLabel;
+              this.previousOperator = buttonLabel.charAt(0);
             }
-            inputString = "0";
+            this.inputString = '0';
             break;
           default:
-            if (inputString === "0") {
-              inputString = buttonLabel;
+            if (this.inputString === '0') {
+              this.inputString = buttonLabel;
             } else {
-              inputString += buttonLabel;
+              this.inputString += buttonLabel;
             }
-            display.value = inputString;
-            if (previousOperator === "=") {
-              result = 0;
-              previousOperator = "";
+            this.display.setText(this.inputString);
+            if (this.previousOperator === '=') {
+              this.result = 0;
+              this.previousOperator = ' ';
             }
             break;
         }
       }
-
-      function compute() {
-  let inputNum = parseInt(inputString);
-  inputString = "0";
-  switch (previousOperator) {
-    case '+':
-      result += inputNum;
-      break;
-    case '-':
-      result -= inputNum;
-      break;
-    case '*':
-      result *= inputNum;
-      break;
-    case '/':
-      result /= inputNum;
-      break;
-    default:
-      result = inputNum;
-      break;
+    }
+    this.CalculatorButtonsHandler = new CalculatorButtonsHandler();
   }
-  display.value = result;
+
+  // Method to handle calculator computations
+  compute() {
+    const inputNum = parseInt(this.inputString);
+    this.inputString = '0';
+    switch (this.previousOperator) {
+      case '+':
+        this.result += inputNum;
+        break;
+      case '-':
+        this.result -= inputNum;
+        break;
+      case '*':
+        this.result *= inputNum;
+        break;
+      case '/':
+        this.result /= inputNum;
+        break;
+      default:
+        this.result = inputNum;
+        break;
+    }
+    this.display.setText(this.result.toString());
+  }
+
+  start() {
+    // Create GridPane to place all buttons needed for the Calculator
+    const display = this.display;
+    const grid = document.createElement('div');
+    grid.style.padding = '10px';
+    grid.style.display = 'grid';
+    grid.style.gridGap = '10px';
+    grid.style.gridTemplateColumns = 'repeat(4, 50px)';
+    grid.style.gridTemplateRows = 'repeat(4, 50px)';
+    grid.style.alignItems = 'center';
+    grid.style.justifyContent = 'center';
+
+    // Create buttons and add them to the grid
+    for (let i = 0; i < this.buttonLabels.length; i++) {
+      const button = document.createElement('button');
+      button.innerText = this.buttonLabels[i];
+      button.onclick = (e) => this.CalculatorButtonsHandler.handle(e);
+      button.style.width = '50px';
+      button.style.height = '50px';
+      grid.appendChild(button);
+      this.buttons[i] = button;
+    }
+
+    // Use Flex Container to place textField at the top and the Grid of buttons in the center
+    const container = document.createElement('div');
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column';
+    container.style.alignItems = 'center';
+    container.style
+// Create a function to update the display with the current input
+function updateDisplay(displayString) {
+  const display = document.getElementById("display");
+  display.value = displayString;
 }
 
+// Create the calculator UI
+function createCalculatorUI() {
+  const container = document.createElement("div");
+  container.className = "container";
 
-let display = document.createElement("input");
-display.type = "text";
-display.value = "0";
-display.readOnly = true;
-display.style.width = "100%";
+  // Create the display field
+  const display = document.createElement("input");
+  display.id = "display";
+  display.className = "display";
+  display.type = "text";
+  display.value = "0";
+  display.readOnly = true;
+  container.appendChild(display);
 
-let grid = document.createElement("div");
-grid.style.padding = "10px";
-grid.style.display = "grid";
-grid.style.gridTemplateColumns = "repeat(4, 1fr)";
-grid.style.gridGap = "10px";
-grid.style.placeItems = "center";
+  // Create the buttons
+  const buttonContainer = document.createElement("div");
+  buttonContainer.className = "button-container";
+  buttonLabels.forEach(label => {
+    const button = document.createElement("button");
+    button.className = "button";
+    button.textContent = label;
+    button.addEventListener("click", () => handleButtonClick(label));
+    buttonContainer.appendChild(button);
+  });
+  container.appendChild(buttonContainer);
 
-let buttonLabels = ["C", "+", "-", "*", "/", "7", "8", "9", "4", "5", "6", "1", "2", "3", "0", ".", "="];
-let buttons = [];
+  // Add the calculator UI to the DOM
+  document.body.appendChild(container);
+}
 
-function CalculatorButtonsHandler(event) {
-  let buttonLabel = event.target.textContent;
-  switch (buttonLabel) {
-    case "C":
-      result = 0;
-      inputString = "0";
-      previousOperator = "";
-      display.value = inputString;
-      break;
-    case "+":
-    case "-":
-    case "*":
-    case "/":
-    case "=":
-      compute();
-      if (buttonLabel === "=") {
+// Create the calculator UI when the window is loaded
+window.addEventListener("load", () => {
+  createCalculatorUI();
+});
