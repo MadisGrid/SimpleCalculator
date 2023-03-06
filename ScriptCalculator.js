@@ -126,6 +126,7 @@ start() {
     this.buttons[i] = button;
     grid.appendChild(button);
   }
+}
 
   // Add the last row of buttons
   const clearButton = document.createElement("button");
@@ -152,4 +153,4 @@ start() {
   document.body.appendChild(grid);
   document.body.appendChild(this.display);
 }
-}
+
