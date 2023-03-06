@@ -6,7 +6,7 @@
  * @author aesth
  *
  */
-module SER_216_ExtraCredit {
+module Madis_Calculator_SER {
 	requires javafx.base;
 	requires javafx.graphics;
 	requires javafx.controls;
