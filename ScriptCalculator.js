@@ -21,69 +21,67 @@ class Calculator {
     // CalculatorButtonsHandler Listener class to handle button clicks
     const CalculatorButtonsHandler = {
       handle: (e) => {
-        const buttonLabel = e.target.innerText;
-        switch (buttonLabel) {
-          case 'C':
-            this.result = 0;
-            this.inputString = '';
-            this.previousOperator = ' ';
-            this.display.value = this.inputString;
-            break;
-          case '+':
-          case '-':
-          case '*':
-          case '/':
-          case '=':
-            this.compute();
-            if (buttonLabel === '=') {
-              this.previousOperator = ' ';
-            } else {
-              this.previousOperator = buttonLabel.charAt(0);
-            }
-            this.inputString = '';
-            break;
-          default:
-            if (this.inputString === '' || this.inputString === '0') {
-              this.inputString = buttonLabel;
-            } else {
-              this.inputString += buttonLabel;
-            }
-            this.display.value = this.inputString;
-            if (this.previousOperator === '=') {
-              this.result = 0;
-              this.previousOperator = ' ';
-            }
-            break;
-        }
+  const buttonLabel = e.target.innerText;
+  switch (buttonLabel) {
+    case 'C':
+      this.result = 0;
+      this.inputString = '';
+      this.previousOperator = ' ';
+      this.display.value = '0';
+      break;
+    case '+':
+    case '-':
+    case '*':
+    case '/':
+      if (this.inputString !== '') {
+        this.compute();
       }
+      this.previousOperator = buttonLabel.charAt(0);
+      break;
+    case '=':
+      if (this.inputString !== '') {
+        this.compute();
+        this.previousOperator = ' ';
+      }
+      break;
+    default:
+      if (this.inputString === '0') {
+        this.inputString = buttonLabel;
+      } else {
+        this.inputString += buttonLabel;
+      }
+      this.display.value = this.inputString;
+      break;
+  }
+}
     };
 
     this.CalculatorButtonsHandler = CalculatorButtonsHandler;
   }
 
   // Method to handle calculator computations
-  compute() {
-    const inputNum = parseInt(this.inputString);
-    this.inputString = '0';
-    switch (this.previousOperator) {
-      case '+':
-        this.result += inputNum;
-        break;
-      case '-':
-        this.result -= inputNum;
-        break;
-      case '*':
-        this.result *= inputNum;
-        break;
-      case '/':
-        this.result /= inputNum;
-        break;
-      default:
-        this.result = inputNum;
-        break;
-    }
-    this.display.value = this.result.toString();
+ compute() {
+  const inputNum = parseInt(this.inputString);
+  this.inputString = '';
+  switch (this.previousOperator) {
+    case '+':
+      this.result += inputNum;
+      break;
+    case '-':
+      this.result -= inputNum;
+      break;
+    case '*':
+      this.result *= inputNum;
+      break;
+    case '/':
+      this.result /= inputNum;
+      break;
+    default:
+      this.result = inputNum;
+      break;
   }
+  this.display.value = this.result.toString();
+}
 
   start() {
  // Create GridPane to place all buttons needed for the Calculator
