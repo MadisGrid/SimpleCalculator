@@ -151,5 +151,8 @@ start() {
 
   document.body.appendChild(grid);
   document.body.appendChild(this.display);
+  
+  const calculator = new Calculator();
+calculator.start();
 }
 
